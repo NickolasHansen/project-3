@@ -1,41 +1,75 @@
 <!doctype html>
 <html lang="en">
 <head>
-<style>canvas {
- border: 2px solid black;
+ <title>happy fun times</title>
+ <meta charset="utf-8">
+ <style>
+canvas {
+ border: 1px solid black;;
 }
+</style>
+ <script>
+ var canvas;
+ var context;
+ var particles;
+ var timer;
+ var fireworks;
+ function makeParticles(x,y) {
+	//create an array of particles for our animation
+	particles = [];
+	for(var i = 0; i < 30; i++)
+	{
+		particles.push(new Particle(x,y));
+	}
+ }
+ function degreesToRadians(degrees) {
+	 //converts from degrees to radians and returns
+	 return (degrees * Math.PI)/180;
+ }
+ function Particle(x,y)
+ {
+	 //the constructor for a single particle, with random starting x+y, velocity, color, and radius
+	 this.x = x;
+	 this.y = y;
+	 this.vx = Math.random()*10-5;
+	 this.vy = Math.random()*10-5;
+	 var colors = ["crimson", "darkgreen", "navy", "slategray", "purple", "seagreen", "darkblue"];
+	 this.color = colors[Math.floor(Math.random()*colors.length)];
+	 this.radius = 30;
+ }
+ function moveParticles() {
+	 //partially clear the screen to fade previous circles, and draw a new particle at each new coordinate
+	 context.globalCompositeOperation = "source-over";
+	 context.fillStyle = "rgba(255, 255, 255, 0.3)";
+	 context.fillRect(0, 0, canvas.width, canvas.height);
+	 context.globalCompositeOperation = "darken";
+	 for(var i = 0; i < particles.length; i++)
+	 {
+		 var p = particles[i];
+		 context.beginPath();
+		 context.arc(p.x, p.y, p.radius -= .5, 0, degreesToRadians(360), true);
+		 context.fillStyle = p.color;
+		 context.fill();
+		 p.x += p.vx;
+		 p.y += p.vy;
+		 if(p.x < -50) p.x = canvas.width+50;
+		 if(p.y < -50) p.y = canvas.height+50;
+		 if(p.x > canvas.width+50) p.x = -50;
+		 if(p.y > canvas.height+50) p.y = -50;
+	 }
+ }
 
+ window.onload = function() {
+ 	 canvas = document.getElementById('canvas');
+	 context = canvas.getContext('2d');
+	 canvas.onclick = function(event) {
+     makeParticles(event.clientX, event.clientY);
+ };
+	 timer = setInterval(moveParticles, 25);
+ }
+</script>
 </head>
 <body>
-<canvas id="myCanvas" width="300" height="300"></canvas>
+	<canvas id="canvas" width="500" height="400"></canvas>
 </body>
-<script>
-window.onload = init;
-var canvas;
-var context;
-function init() {
- canvas = document.getElementById("myCanvas");
- context = canvas.getContext("2d");
- canvas.onclick = function(event) {
-     handleClick(event.clientX, event.clientY);
- };
-}
-unction handleClick(x, y) {
- var colors = ["red", "green", "blue", "orange", "purple", "yellow"];
- var color = colors[Math.floor(Math.random()*colors.length)];
- var compositeTypes = ['source-over','source-atop','destination-over','destination-out','destination-atop','lighter','darker','xor'];
- //others to try: 'copy', 'destination-in','source-out','source-in'
- var type = compositeTypes[Math.floor(Math.random()*compositeTypes.length)];
- alert("Type: " + type);
- context.globalCompositeOperation = type;
- context.beginPath();
- context.arc(x, y, 30, 0, degreesToRadians(360), true);
- context.fillStyle = color;
- context.fill();
-}
-function degreesToRadians(degrees) {
- //converts from degrees to radians and returns
- return (degrees * Math.PI)/180;
-}
-</script>
 </html>

@@ -38,11 +38,11 @@ canvas {
 	 this.radius = 30;
  }
  function moveParticles() {
-	 //partially clear the screen to fade previous circles, and draw a new particle at each new coordinate
+	 fillBackgroundColor();
 	 context.globalCompositeOperation = "source-over";
 	 context.fillStyle = "rgba(255, 255, 255, 0.3)";
 	 context.fillRect(0, 0, canvas.width, canvas.height);
-	 context.globalCompositeOperation = "darken";
+	 context.globalCompositeOperation = "xor";
 	 for(var i = 0; i < particles.length; i++)
 	 {
 		 var p = particles[i];
@@ -58,7 +58,10 @@ canvas {
 		 if(p.y > canvas.height+50) p.y = -50;
 	 }
  }
-
+function fillBackgroundColor() {
+		 context.fillStyle = 'gold';
+		 context.fillRect(0, 0, canvas.width, canvas.height);
+	}
  window.onload = function() {
  	 canvas = document.getElementById('canvas');
 	 context = canvas.getContext('2d');
@@ -70,6 +73,6 @@ canvas {
 </script>
 </head>
 <body>
-	<canvas id="canvas" width="500" height="400"></canvas>
+	<canvas id="canvas" width="1000" height="800"></canvas>
 </body>
 </html>

@@ -14,10 +14,11 @@ canvas {
  var particles;
  var timer;
  var fireworks;
+ 	var particles = [];
  function makeParticles(x,y) {
 	//create an array of particles for our animation
-	particles = [];
-	for(var i = 0; i < 30; i++)
+
+	for(var i = 0; i < 60; i++)
 	{
 		particles.push(new Particle(x,y));
 	}
@@ -36,18 +37,51 @@ canvas {
 	 var colors = ["crimson", "darkgreen", "navy", "slategray", "purple", "seagreen", "darkblue"];
 	 this.color = colors[Math.floor(Math.random()*colors.length)];
 	 this.radius = 30;
+	  if(this.radius > 0){
+			this.radious = this.radius - .5;
+		 }
+ }
+ function cone(){
+	context.beginPath();
+	context.moveTo(150,100);
+	context.lineTo(200, 150);
+	context.lineTo(250, 100);
+	context.lineJoin = 'round';
+	context.quadraticCurveTo(200, 40, 150, 100);
+	context.lineJoin = 'round';
+	context.lineWidth = 10;
+	context.lineCap = 'round';
+	context.strokeStyle = 'crimson';
+    context.stroke();
+ }
+ function oddShape(){
+	context.beginPath();
+      context.moveTo(500, 500);
+	  context.lineTo(400, 400);
+      context.bezierCurveTo(425, 420, 130, 500, 350, 350);
+      context.bezierCurveTo(350, 200, 320, 180, 425, 300);
+      context.bezierCurveTo(420, 150, 620, 120, 450, 350);
+      context.bezierCurveTo(500, 540, 600, 475, 500, 500);
+	context.lineJoin = 'round';
+	context.lineWidth = 10;
+	context.lineCap = 'round';
+	context.strokeStyle = 'darkblue';
+    context.stroke();
+ 
  }
  function moveParticles() {
 	 fillBackgroundColor();
 	 context.globalCompositeOperation = "source-over";
-	 context.fillStyle = "rgba(255, 255, 255, 0.3)";
+	 context.fillStyle = "slategray";
 	 context.fillRect(0, 0, canvas.width, canvas.height);
 	 context.globalCompositeOperation = "xor";
+	 cone()
+	 oddShape()
 	 for(var i = 0; i < particles.length; i++)
 	 {
 		 var p = particles[i];
 		 context.beginPath();
-		 context.arc(p.x, p.y, p.radius -= .5, 0, degreesToRadians(360), true);
+		 context.arc(p.x, p.y, p.radius, 0, degreesToRadians(360), true);
 		 context.fillStyle = p.color;
 		 context.fill();
 		 p.x += p.vx;
@@ -56,10 +90,15 @@ canvas {
 		 if(p.y < -50) p.y = canvas.height+50;
 		 if(p.x > canvas.width+50) p.x = -50;
 		 if(p.y > canvas.height+50) p.y = -50;
+		 //context.globalCompositeOperation = "xor";
+		 if(p.radius > 0){
+		 console.log(p.radius)
+			p.radius -= 1;
+		 }
 	 }
  }
 function fillBackgroundColor() {
-		 context.fillStyle = 'gold';
+		 context.fillStyle = 'slategray';
 		 context.fillRect(0, 0, canvas.width, canvas.height);
 	}
  window.onload = function() {

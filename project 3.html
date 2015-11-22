@@ -95,7 +95,7 @@ canvas {
 	context.lineJoin = 'round';
 	context.lineWidth = 10;
 	context.lineCap = 'round';
-	context.strokeStyle = 'seagreen';
+	context.strokeStyle = 'gold';
     context.stroke();
  }
  function fun(){
@@ -115,17 +115,44 @@ canvas {
 	context.strokeStyle = 'seagreen';
     context.stroke();
  }
+ function text(x){
+    //x = 10
+	context.font = "30px Times New Roman";
+	context.fillStyle = 'black';
+	context.fillText("Hello World",x,790);
+	//x = x + 3
+ }
+ var fS =0
+ var xt = 0;
+ function fShift(){
+	fS = 1
+	//console.log("fired")
+ }
  function moveParticles() {
+	//var x = 0;
 	 fillBackgroundColor();
 	 context.globalCompositeOperation = "source-over";
 	 context.fillStyle = "slategray";
 	 context.fillRect(0, 0, canvas.width, canvas.height);
-	 context.globalCompositeOperation = "xor";
+	 //context.globalCompositeOperation = "xor";
 	 cone();
 	 oddShape();
 	 lineShape();
 	 house();
 	 fun();
+	 //text(x);
+	setTimeout(fShift, 3000)
+	context.font = "30px Times New Roman";
+	if(fS == 1){
+	 context.fillStyle = 'maroon';
+	}else{
+	context.fillStyle = 'black';
+	}
+	context.fillText("Click anywhere for particles",xt,790);
+	 if(xt < 600){
+	 console.log(xt)
+	   xt += 3;
+	 }
 	 for(var i = 0; i < particles.length; i++)
 	 {
 		 var p = particles[i];
@@ -139,7 +166,7 @@ canvas {
 		 if(p.y < -50) p.y = canvas.height+50;
 		 if(p.x > canvas.width+50) p.x = -50;
 		 if(p.y > canvas.height+50) p.y = -50;
-		 //context.globalCompositeOperation = "xor";
+		 context.globalCompositeOperation = "xor";
 		 if(p.radius > 0){
 		 //console.log(p.radius)
 			p.radius -= .5;

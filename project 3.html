@@ -69,14 +69,63 @@ canvas {
     context.stroke();
  
  }
+ function lineShape(){
+	context.beginPath();
+	context.moveTo(100,700);
+	context.lineTo(300, 700);
+	context.lineTo(250, 600);
+	context.lineTo(150, 500);
+	context.lineTo(160, 540);
+	context.lineTo(130, 510);
+	context.lineTo(100,700);
+	context.lineJoin = 'round';
+	context.lineWidth = 10;
+	context.lineCap = 'round';
+	context.strokeStyle = 'navy';
+    context.stroke();
+ }
+ function house(){
+	context.beginPath();
+	context.moveTo(800,700);
+	context.lineTo(600, 700);
+	context.lineTo(600, 500);
+	context.lineTo(700, 400);
+	context.lineTo(800, 500);
+	context.lineTo(800, 700);
+	context.lineJoin = 'round';
+	context.lineWidth = 10;
+	context.lineCap = 'round';
+	context.strokeStyle = 'seagreen';
+    context.stroke();
+ }
+ function fun(){
+	context.beginPath();
+	context.moveTo(800,300);
+	context.lineTo(600, 300);
+	context.quadraticCurveTo(500, 250, 600, 200);
+	//context.lineTo(600, 500);
+	context.quadraticCurveTo(650, 125, 700, 150);
+	//context.lineTo(700, 400);
+	context.lineTo(700, 200);
+	context.quadraticCurveTo(900, 250, 800, 300);
+	context.lineTo(800, 300);
+	context.lineJoin = 'round';
+	context.lineWidth = 10;
+	context.lineCap = 'round';
+	context.strokeStyle = 'seagreen';
+    context.stroke();
+ }
  function moveParticles() {
 	 fillBackgroundColor();
 	 context.globalCompositeOperation = "source-over";
 	 context.fillStyle = "slategray";
 	 context.fillRect(0, 0, canvas.width, canvas.height);
 	 context.globalCompositeOperation = "xor";
-	 cone()
-	 oddShape()
+	 cone();
+	 oddShape();
+	 lineShape();
+	 house();
+	 fun();
 	 for(var i = 0; i < particles.length; i++)
 	 {
 		 var p = particles[i];
@@ -92,8 +141,8 @@ canvas {
 		 if(p.y > canvas.height+50) p.y = -50;
 		 //context.globalCompositeOperation = "xor";
 		 if(p.radius > 0){
-		 console.log(p.radius)
-			p.radius -= 1;
+		 //console.log(p.radius)
+			p.radius -= .5;
 		 }
 	 }
  }

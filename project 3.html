@@ -41,18 +41,24 @@ canvas {
 			this.radious = this.radius - .5;
 		 }
  }
+ 
+ var xC = 150
+ var yC = 100
+ var rC = 200
  function cone(){
 	context.beginPath();
-	context.moveTo(150,100);
-	context.lineTo(200, 150);
-	context.lineTo(250, 100);
+	context.moveTo(xC,yC);
+	context.lineTo(xC + 50, yC + 50);
+	context.lineTo(xC + 100, yC);
 	context.lineJoin = 'round';
-	context.quadraticCurveTo(200, 40, 150, 100);
+	context.quadraticCurveTo(rC, 40, xC, yC);
 	context.lineJoin = 'round';
 	context.lineWidth = 10;
 	context.lineCap = 'round';
-	context.strokeStyle = 'crimson';
-    context.stroke();
+	context.fillStyle = 'crimson';
+    context.fill();
+  if (yC < 700)
+	yC = yC + 3
  }
  function oddShape(){
 	context.beginPath();
@@ -69,21 +75,26 @@ canvas {
     context.stroke();
  
  }
+ var xL = 100
+ var yL = 700
  function lineShape(){
 	context.beginPath();
-	context.moveTo(100,700);
-	context.lineTo(300, 700);
-	context.lineTo(250, 600);
-	context.lineTo(150, 500);
-	context.lineTo(160, 540);
-	context.lineTo(130, 510);
-	context.lineTo(100,700);
+	context.moveTo(xL,yL);
+	context.lineTo(xL + 200, yL);
+	context.lineTo(xL + 150, yL - 100);
+	context.lineTo(xL+ 50, yL - 200);
+	context.lineTo(xL + 60, yL - 160);
+	context.lineTo(xL + 30, yL - 190);
+	context.lineTo(xL,yL);
 	context.lineJoin = 'round';
 	context.lineWidth = 10;
 	context.lineCap = 'round';
-	context.strokeStyle = 'navy';
-    context.stroke();
+	context.fillStyle = 'navy';
+    context.fill();
+	  if (yL > 250)
+	yL = yL - 3
  }
+ 
  function house(){
 	context.beginPath();
 	context.moveTo(800,700);
@@ -112,8 +123,9 @@ canvas {
 	context.lineJoin = 'round';
 	context.lineWidth = 10;
 	context.lineCap = 'round';
-	context.strokeStyle = 'seagreen';
-    context.stroke();
+	context.fillStyle = 'seagreen';
+    context.fill();
+	//context.globalCompositeOperation = "xor";
  }
  function text(x){
     //x = 10

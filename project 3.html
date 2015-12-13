@@ -63,7 +63,9 @@ var keyCode = e.keyCode;
 			this.radious = this.radius - .5;
 		 }
  }
- 
+ function styleS(){
+  makeParticles(0,0);
+ }
  var xC = 150
  var yC = 100
  var rC = 200
@@ -193,6 +195,10 @@ var keyCode = e.keyCode;
  }
  
  }
+ var timerT = 0
+ function resetT(){
+ timerT = 0
+ }
  function moveParticles() {
 	//var x = 0;
 	 fillBackgroundColor();
@@ -200,6 +206,11 @@ var keyCode = e.keyCode;
 	 context.fillStyle = "slategray";
 	 context.fillRect(0, 0, canvas.width, canvas.height);
 	 //context.globalCompositeOperation = "xor";
+	 if (timerT == 0){
+	 styleS();
+	 setTimeout(resetT, 1000);
+	 timerT = 1;
+	 }
 	 compC();
 	 cone();
 	 oddShape();

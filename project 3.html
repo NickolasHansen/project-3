@@ -140,6 +140,25 @@ canvas {
 	fS = 1
 	//console.log("fired")
  }
+ var cOp = 0
+ function compC (){
+ if (cOp == 0){
+	context.globalCompositeOperation = "xor";
+ } else if (cOp == 1){
+	context.globalCompositeOperation = "source-atop";
+ } else if (cOp == 2){
+	context.globalCompositeOperation = "lighter";
+ } else if (cOp == 3){
+	context.globalCompositeOperation = "multiply";
+ } else if (cOp == 4){
+	context.globalCompositeOperation = "darken";
+ } else if (cOp == 5){
+	context.globalCompositeOperation = "lighten";
+ } else if (cOp == 6){
+	context.globalCompositeOperation = "color-burn";
+ }
+ 
+ }
  function moveParticles() {
 	//var x = 0;
 	 fillBackgroundColor();
@@ -147,6 +166,7 @@ canvas {
 	 context.fillStyle = "slategray";
 	 context.fillRect(0, 0, canvas.width, canvas.height);
 	 //context.globalCompositeOperation = "xor";
+	 compC();
 	 cone();
 	 oddShape();
 	 lineShape();
@@ -178,7 +198,6 @@ canvas {
 		 if(p.y < -50) p.y = canvas.height+50;
 		 if(p.x > canvas.width+50) p.x = -50;
 		 if(p.y > canvas.height+50) p.y = -50;
-		 context.globalCompositeOperation = "xor";
 		 if(p.radius > 0){
 		 //console.log(p.radius)
 			p.radius -= .5;
